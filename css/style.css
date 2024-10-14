@@ -5,6 +5,7 @@
  * Copyright 2011-2020 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
+ 
 :root {
   --blue: #007bff;
   --indigo: #6610f2;
@@ -19,7 +20,7 @@
   --white: #fff;
   --gray: #6c757d;
   --gray-dark: #343a40;
-  --primary: red;
+  --primary: red(143, 6, 6);
   --secondary: #EDF5F7;
   --success: #28a745;
   --info: #17a2b8;
@@ -9551,7 +9552,6 @@ a.text-dark:hover, a.text-dark:focus {
   height: 2px;
   bottom: 11px;
   left: calc(50% - 80px);
-  background: red;
 }
 
 .section-title::after {
@@ -9561,7 +9561,7 @@ a.text-dark:hover, a.text-dark:focus {
   height: 2px;
   bottom: 11px;
   right: calc(50% - 80px);
-  background: red;
+
 }
 
 .btn-play {
@@ -9802,8 +9802,7 @@ a.text-dark:hover, a.text-dark:focus {
 }
 
 .eventCards{
-  width: auto; height: auto;  background-color: rgb(255,255,255,0.1); padding: 8px; border-radius: 4px;   backdrop-filter: blur(6px);
-        -webkit-backdrop-filter: blur(3px); animation: moveUpDown 3s ease-in-out infinite;
+  background-color: rgb(255,255,255,0.1);  
 }
 
 @keyframes moveUpDown {
