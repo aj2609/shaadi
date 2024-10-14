@@ -170,3 +170,12 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }, { once: true });
 });
+
+// Update this function to handle the "See the Venue" button click
+/*
+$('.see-venue-btn').on('click', function(event) {
+    event.preventDefault();
+    var mapUrl = "https://www.google.com/maps/place/Sanskriti+Greens+Hotel+%26+Banquets/@29.2120559,78.9631216,17z/";
+    window.open(mapUrl, '_blank');
+});
+*/
