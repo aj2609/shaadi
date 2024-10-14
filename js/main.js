@@ -179,3 +179,53 @@ $('.see-venue-btn').on('click', function(event) {
     window.open(mapUrl, '_blank');
 });
 */
+
+// Add this function to your js/main.js file
+
+function addToCalendar(e) {
+    e.preventDefault();
+    
+    var startDate = new Date('2024-12-07T10:00:00');
+    var endDate = new Date('2024-12-07T22:00:00');
+    
+    var calendarEvent = {
+        title: "Amit & Apurvaa's Wedding",
+        description: "We are excited to celebrate our special day with you!",
+        location: "Sanskriti Greens, Kashipur",
+        start: startDate.toISOString(),
+        end: endDate.toISOString()
+    };
+
+    if (navigator.share) {
+        navigator.share({
+            title: calendarEvent.title,
+            text: calendarEvent.description,
+            url: window.location.href
+        }).then(() => {
+            console.log('Thanks for sharing!');
+        })
+        .catch(console.error);
+    } else {
+        // Fallback to downloading ICS file
+        var icsFile = 
+            'BEGIN:VCALENDAR\n' +
+            'VERSION:2.0\n' +
+            'BEGIN:VEVENT\n' +
+            'URL:' + window.location.href + '\n' +
+            'DTSTART:' + startDate.toISOString().replace(/-|:|\.\d\d\d/g, '') + '\n' +
+            'DTEND:' + endDate.toISOString().replace(/-|:|\.\d\d\d/g, '') + '\n' +
+            'SUMMARY:' + calendarEvent.title + '\n' +
+            'DESCRIPTION:' + calendarEvent.description + '\n' +
+            'LOCATION:' + calendarEvent.location + '\n' +
+            'END:VEVENT\n' +
+            'END:VCALENDAR';
+
+        var blob = new Blob([icsFile], { type: 'text/calendar;charset=utf-8' });
+        var link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        link.download = "Wedding_Invitation.ics";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+}
