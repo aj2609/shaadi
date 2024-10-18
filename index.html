@@ -12,6 +12,8 @@
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;600&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Tangerine:wght@700&display=swap" rel="stylesheet">
 
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
@@ -23,15 +25,24 @@
     <!-- Customized Bootstrap Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
 
-
+    <!-- Add this style block just before the closing </head> tag -->
+    <style>
+        body {
+            background-image: url('../wedding_invitation/img/bg1.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+    </style>
 </head>
 
-<body data-spy="scroll" data-target=".navbar" data-offset="51">
+<body data-spy="scroll" data-target=".navbar" data-offset="51" class="bg-image">
     <div class="glass-overlay"></div>
     <!-- Navbar Start -->
     <nav class="navbar fixed-top shadow-sm navbar-expand-lg navbar-dark py-3 py-lg-0 px-lg-5 glassmorphism" style="background-color: rgba(0, 83, 83, 0.8);">
         <a href="index.html" class="navbar-brand d-block d-lg-none">
-            <h1 class="font-secondary text-white mb-n2">Amit <span class="text-primary">&</span> Apurvaa</h1>
+            <h1 class="font-secondary text-white mb-n2" style="font-family: 'Tangerine', cursive; font-size: 2.5rem;">Amit <span class="text-primary">&</span> Apurvaa</h1>
         </a>
         <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
@@ -46,7 +57,7 @@
                 <a href="#gallery" class="nav-item nav-link">Gallery</a> -->
             </div>
             <a href="index.html" class="navbar-brand mx-5 d-none d-lg-block">
-                <h1 class="font-secondary text-white mb-n2">Amit <span class="text-primary">&</span> Apurvaa</h1>
+                <h1 class="font-secondary text-white mb-n2" style="font-family: 'Tangerine', cursive; font-size: 3.5rem;">Amit <span class="text-primary">&</span> Apurvaa</h1>
             </a>
             <div class="navbar-nav mr-auto py-0">
                 <!-- <a href="#family" class="nav-item nav-link">Family</a>
@@ -66,7 +77,7 @@
                     <img class="position-absolute w-100 h-100" src="img/252.jpg" style="object-fit: cover;">
                     <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                         <div class="p-3" style="max-width: 900px;">
-                            <h1 class="display-1 font-secondary text-white mt-n3 mb-md-4">Amit & Apurvaa</h1>
+                            <h1 class="display-1 font-secondary text-white mt-n3 mb-md-4" style="font-family: 'Tangerine', cursive; font-size: 6rem;">Amit & Apurvaa</h1>
                             <div class="d-inline-block border-top border-bottom border-light py-3 px-4">
                                 <h3 class="text-uppercase font-weight-normal text-white m-0" style="letter-spacing: 2px;">We're getting married</h3>
                                 <h3 class="timer font-weight-normal text-white" style="letter-spacing: 2px;"></h3>
@@ -80,14 +91,14 @@
     <!-- Carousel End -->
 
     <!-- Save the Date Start -->
-    <div class="container-fluid py-5 glassmorphism shine save-the-date" style="background-color: #005353; margin-top: -5px;">
+    <div class="container-fluid py-5 glassmorphism shine save-the-date" style="background-color: #FFE4E1; margin-top: -5px;">
         <div class="container">
-            <div class="text-center text-white">
-                <h6 class="text-uppercase text-primary mb-3" style="letter-spacing: 3px; font-size: 1.5rem;">Save the Date</h6>
-                <h1 class="font-secondary display-3 text-white mb-4">7th December 2024</h1>
+            <div class="text-center">
+                <h6 class="text-uppercase mb-3" style="letter-spacing: 3px; font-size: 1.5rem; color: #8B4513;">Save the Date</h6>
+                <h1 class="font-secondary display-3 mb-4" style="font-family: 'Great Vibes', cursive; color: #800000;">7th December 2024</h1>
                 
                 <!-- Add to Calendar button -->
-                <a class="btn btn-outline-light btn-lg mb-4" href="#" onclick="addToCalendar(event)">
+                <a class="btn btn-outline-dark btn-lg mb-4" href="#" onclick="addToCalendar(event)" style="color: #8B4513; border-color: #8B4513;">
                     <i class="far fa-calendar-alt mr-2"></i>Add to Calendar
                 </a>
                 
@@ -95,17 +106,10 @@
                 <div>
                     <a href="https://www.google.com/maps?q=Sanskriti+Greens+Hotel+%26+Banquets,+Kashipur,+Uttarakhand&z=15" 
                        target="_blank" 
-                       class="btn btn-outline-light btn-lg mb-4 see-venue-btn">
+                       class="btn btn-outline-dark btn-lg mb-4 see-venue-btn" style="color: #8B4513; border-color: #8B4513;">
                         <i class="fas fa-map-marker-alt mr-2"></i>See the Venue
                     </a>
                 </div>
-                
-                <!-- You can remove or comment out the existing map iframe if you no longer want it displayed on the page -->
-                <!--
-                <div class="map-container mt-4" style="width: 100%; height: 300px; overflow: hidden; border-radius: 4px;">
-                    <iframe src="https://maps.google.com/maps?q=sanskriti%20greens%20kashipur&amp;t=k&amp;z=13&amp;ie=UTF8&amp;iwloc=&amp;output=embed" width="100%" height="300" frameborder="0" style="border:0"></iframe>
-                </div>
-                -->
             </div>
         </div>
     </div>
@@ -159,7 +163,7 @@
         <div class="container pt-5 pb-3">
             <div class="section-title position-relative text-center">
                 <h6 class="text-uppercase text-primary mb-3" style="letter-spacing: 3px; font-size: 1.5rem;">Events</h6>
-                <h1 class="font-secondary display-3" style="text-decoration: none; background: none;">Our Wedding Event</h1>
+                <h1 class="font-secondary display-3 wedding-font" style="font-family: 'Playfair Display', serif; font-size: 3rem;">Our Wedding Event</h1>
             </div>
             <div class="container p-0">
                 
@@ -175,7 +179,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Ganesh Pooja -->
                 <div class="mb-4">
                     <div class="p-4 glassmorphism shine" style="border-radius: 4px; background-color: rgba(255, 200, 200, 0.3);">
@@ -240,7 +244,7 @@
                 <div>
                     <div class="p-4 glassmorphism shine" style="border-radius: 4px; background-color: rgba(220, 220, 220, 0.3);">
                         <div class="text-center mb-4">
-                            <img class="img-fluid" src="img/vidayii.jpg" alt="" style="max-width: 150px;">
+                            <img class="img-fluid" src="img/vidayii.png" alt="" style="max-width: 150px;">
                         </div>
                         <div class="text-center">
                             <h4 class="mb-2" style="color: #2F4F4F;">Vidayi</h4>
@@ -398,7 +402,7 @@
     <div class="container-fluid text-white py-5 glassmorphism shine" id="contact" style="background-color: #005353; margin-top: 90px;">
         <div class="container text-center py-5">
             <div class="section-title position-relative text-center">
-                <h1 class="font-secondary display-2 text-white">Thank You</h1>
+                <h1 class="font-secondary display-2 text-white" style="font-family: 'Playfair Display', serif; font-size: 3rem;">Thank You</h1>
                 <div class="designer-underline"></div>
                 <i class="fa fa-heart fa-2x text-primary mt-3"></i>
             </div>
