@@ -122,24 +122,29 @@ window.addEventListener('click', function () {
     audio.play();
 })
 
-var countDownDate = new Date("December 7, 2024 11:27:15").getTime();
-var timeClear = setInterval(function() {
-  var now = new Date().getTime();
-  var timeLeft = countDownDate - now;
-  var days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-  var hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  var minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-  var seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-  document.querySelector(".timer").innerHTML =
-    days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
-  if (timeLeft < 0) {
-    clearInterval(timeClear);
-    document.querySelector(".timer").innerHTML = "Timer Finished";
-  }
-}, 1000);
+// Add this function at the beginning of your js/main.js file
+function updateTimer() {
+    var countDownDate = new Date("December 7, 2024 11:27:15").getTime();
+    var now = new Date().getTime();
+    var timeLeft = countDownDate - now;
 
-// Add this code at the end of your main.js file
+    var days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
 
+    var timerElement = document.querySelector(".timer");
+    if (timerElement) {
+        timerElement.innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+        if (timeLeft < 0) {
+            timerElement.innerHTML = "Timer Finished";
+        }
+    } else {
+        console.error("Timer element not found");
+    }
+}
+
+// Add this to your DOMContentLoaded event listener
 document.addEventListener('DOMContentLoaded', function() {
     var audio = document.getElementById('backgroundMusic');
     var muteButton = document.getElementById('muteButton');
@@ -148,10 +153,10 @@ document.addEventListener('DOMContentLoaded', function() {
     function toggleAudio() {
         if (isPlaying) {
             audio.pause();
-            if (muteButton) muteButton.innerHTML = '<i class="fas fa-volume-mute"></i>';
+            if (muteButton) muteButton.querySelector('img').src = 'img/music-stop-icon.png';
         } else {
             audio.play();
-            if (muteButton) muteButton.innerHTML = '<i class="fas fa-volume-up"></i>';
+            if (muteButton) muteButton.querySelector('img').src = 'img/music-icon.png';
         }
         isPlaying = !isPlaying;
     }
@@ -169,6 +174,10 @@ document.addEventListener('DOMContentLoaded', function() {
             toggleAudio();
         }
     }, { once: true });
+
+    // Start the timer
+    updateTimer();
+    setInterval(updateTimer, 1000);
 });
 
 // Update this function to handle the "See the Venue" button click
