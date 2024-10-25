@@ -10,6 +10,20 @@
         }
     });
 
+    document.addEventListener('DOMContentLoaded', function() {
+        var audio = document.getElementById('backgroundMusic');
+        var isPlaying = false;
+    
+        function playAudioOnScroll() {
+            if (!isPlaying && audio) {
+                audio.play();
+                isPlaying = true;
+                window.removeEventListener('scroll', playAudioOnScroll);
+            }
+        }
+    
+        window.addEventListener('scroll', playAudioOnScroll);
+    });
 
     // Smooth scrolling on the navbar links
     $(".navbar-nav a").on('click', function (event) {
@@ -26,7 +40,6 @@
             }
         }
     });
-
 
     // Modal Video
     $(document).ready(function () {
@@ -45,7 +58,6 @@
         })
     });
 
-
     // Scroll to Bottom
     $(window).scroll(function () {
         if ($(this).scrollTop() > 100) {
@@ -54,7 +66,6 @@
             $('.scroll-to-bottom').fadeIn('slow');
         }
     });
-
 
     // Portfolio isotope and filter
     var portfolioIsotope = $('.portfolio-container').isotope({
@@ -68,7 +79,6 @@
         portfolioIsotope.isotope({filter: $(this).data('filter')});
     });
     
-    
     // Back to top button
     $(window).scroll(function () {
         if ($(this).scrollTop() > 200) {
@@ -81,7 +91,6 @@
         $('html, body').animate({scrollTop: 0}, 1500, 'easeInOutExpo');
         return false;
     });
-
 
     // Gallery carousel
     $(".gallery-carousel").owlCarousel({
@@ -115,14 +124,7 @@
     
 })(jQuery);
 
-
-window.addEventListener('click', function () {
-    
-    var audio = document.getElementById("audio");
-    audio.play();
-})
-
-// Add this function at the beginning of your js/main.js file
+// Timer function
 function updateTimer() {
     var countDownDate = new Date("December 7, 2024 11:27:15").getTime();
     var now = new Date().getTime();
@@ -144,7 +146,7 @@ function updateTimer() {
     }
 }
 
-// Add this to your DOMContentLoaded event listener
+// Music playback on first user interaction
 document.addEventListener('DOMContentLoaded', function() {
     var audio = document.getElementById('backgroundMusic');
     var muteButton = document.getElementById('muteButton');
@@ -180,17 +182,7 @@ document.addEventListener('DOMContentLoaded', function() {
     setInterval(updateTimer, 1000);
 });
 
-// Update this function to handle the "See the Venue" button click
-/*
-$('.see-venue-btn').on('click', function(event) {
-    event.preventDefault();
-    var mapUrl = "https://www.google.com/maps/place/Sanskriti+Greens+Hotel+%26+Banquets/@29.2120559,78.9631216,17z/";
-    window.open(mapUrl, '_blank');
-});
-*/
-
-// Add this function to your js/main.js file
-
+// Add to Calendar function
 function addToCalendar(e) {
     e.preventDefault();
     
@@ -238,3 +230,38 @@ function addToCalendar(e) {
         document.body.removeChild(link);
     }
 }
+
+// Event card touch events
+document.addEventListener('DOMContentLoaded', function() {
+    const eventContainer = document.querySelector('.event-container');
+    let startY;
+    let currentCard = 0;
+    const cards = document.querySelectorAll('.event-card');
+
+    function handleTouchStart(e) {
+        startY = e.touches[0].clientY;
+    }
+
+    function handleTouchMove(e) {
+        if (!startY) return;
+
+        let currentY = e.touches[0].clientY;
+        let diff = startY - currentY;
+
+        if (Math.abs(diff) > 50) { // Threshold for swipe
+            if (diff > 0 && currentCard < cards.length - 1) {
+                // Swipe up
+                currentCard++;
+            } else if (diff < 0 && currentCard > 0) {
+                // Swipe down
+                currentCard--;
+            }
+            cards[currentCard].scrollIntoView({ behavior: 'smooth' });
+            startY = null;
+        }
+    }
+
+    eventContainer.addEventListener('touchstart', handleTouchStart, false);
+    eventContainer.addEventListener('touchmove', handleTouchMove, false);
+});
+

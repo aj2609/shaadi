@@ -34,13 +34,39 @@
             background-position: center;
             background-repeat: no-repeat;
         }
+
+        .background-left, .background-right {
+            height: auto;
+        }
+
+        .background-left {
+            float: left;
+        }
+
+        .background-right {
+            float: right;
+        }
+
+        /* For mobile devices */
+        @media (max-width: 767px) {
+            .background-left, .background-right {
+                width: 37vw;
+            }
+        }
+
+        /* For tablets and larger devices */
+        @media (min-width: 768px) {
+            .background-left, .background-right {
+                width: 24vw;
+            }
+        }
     </style>
 </head>
 
 <body data-spy="scroll" data-target=".navbar" data-offset="51" class="bg-image">
     <div class="glass-overlay"></div>
     <!-- Navbar Start -->
-    <nav class="navbar fixed-top shadow-sm navbar-expand-lg navbar-dark py-3 py-lg-0 px-lg-5 glassmorphism" style="background-color: rgba(0, 83, 83, 0.8);">
+    <nav class="navbar fixed-top shadow-sm navbar-expand-lg navbar-dark py-3 py-lg-0 px-lg-5 glassmorphism" style="background-color: #b19cd9;">
         <a href="index.html" class="navbar-brand d-block d-lg-none">
             <h1 class="font-secondary text-white mb-n2" style="font-family: 'Tangerine', cursive; font-size: 2.5rem;">Amit <span class="text-primary">&</span> Apurvaa</h1>
         </a>
@@ -93,7 +119,7 @@
     <!-- Carousel End -->
 
     <!-- Save the Date Start -->
-    <div class="container-fluid py-5 glassmorphism shine save-the-date" style="background-color: #FFE4E1; margin-top: -5px;">
+    <div class="container-fluid py-5 glassmorphism shine save-the-date audio-trigger" style="background-color: #FFE4E1; margin-top: -5px;">
         <div class="container">
             <div class="text-center">
                 <h6 class="text-uppercase mb-3" style="letter-spacing: 3px; font-size: 1.5rem; color: #8B4513;">Save the Date</h6>
@@ -117,60 +143,29 @@
     </div>
     <!-- Save the Date End -->
 
-
-    <!-- Video Modal Start -->
-    <!-- Video Modal End -->
-
-
-    <!-- About Start -->
-    <!-- <div class="container-fluid py-5" id="about">
-        <div class="container py-5">
-            <div class="section-title position-relative text-center">
-                <h6 class="text-uppercase text-primary mb-3" style="letter-spacing: 3px;">About</h6>
-                <h1 class="font-secondary display-4">Groom & Bride</h1>
-                <i class="fa fa-heart fa-2x text-primary"></i>
+    <!-- Background Images Start -->
+    <div class="container-fluid p-0">
+        <div class="row no-gutters">
+            <div class="col-6 p-0">
+                <img src="img/left.png" alt="Left Background" class="background-left">
             </div>
-            <div class="row m-0 mb-4 mb-md-0 pb-2 pb-md-0">
-                <div class="col-md-6 p-0 text-center text-md-right">
-                    <div class="h-100 d-flex flex-column justify-content-center bg-secondary p-5">
-                        <h3 class="mb-3">Groom</h3>
-                        <p>Lorem elitr magna stet rebum dolores sed. Est stet labore est lorem lorem at amet sea, eos tempor rebum, labore amet ipsum sea lorem, stet rebum eirmod amet. Kasd clita kasd stet amet est dolor elitr.</p>
-                        <h3 class="font-secondary font-weight-normal text-muted mb-3">Amit</h3>
-                    
-                    </div>
-                </div>
-                <div class="col-md-6 p-0" style="min-height: 400px;">
-                    <img class="position-absolute w-100 h-100" src="img/amit (1).jpeg" style="object-fit: cover;">
-                </div>
-            </div>
-            <div class="row m-0">
-                <div class="col-md-6 p-0" style="min-height: 400px;">
-                    <img class="position-absolute w-100 h-100" src="img/appu.jpeg" style="object-fit: cover;">
-                </div>
-                <div class="col-md-6 p-0 text-center text-md-left">
-                    <div class="h-100 d-flex flex-column justify-content-center bg-secondary p-5">
-                        <h3 class="mb-3">Bride</h3>
-                        <p>Lorem elitr magna stet rebum dolores sed. Est stet labore est lorem lorem at amet sea, eos tempor rebum, labore amet ipsum sea lorem, stet rebum eirmod amet. Kasd clita kasd stet amet est dolor elitr.</p>
-                        <h3 class="font-secondary font-weight-normal text-muted mb-3">Apurvaa</h3>
-                    </div>
-                </div>
+            <div class="col-6 p-0">
+                <img src="img/right.png" alt="Right Background" class="background-right">
             </div>
         </div>
-    </div> -->
-    <!-- About End -->
+    </div>
+    <!-- Background Images End -->
 
-
-    <!-- event Start -->
-    <div class="container-fluid py-5" id="event">
-        <div class="container pt-5 pb-3">
+    <!-- Event Start -->
+    <div class="container-fluid py-0" id="event" style="margin-top: -5px;">
+        <div class="container pt-0 pb-3">
             <div class="section-title position-relative text-center">
                 <h6 class="text-uppercase text-primary mb-3" style="letter-spacing: 3px; font-size: 1.5rem;">Events</h6>
                 <h1 class="font-secondary display-3 wedding-font" style="font-family: 'Playfair Display', serif; font-size: 3rem;">Our Wedding Event</h1>
             </div>
-            <div class="container p-0">
-                
+            <div class="event-container">
                 <!-- Engagement -->
-                <div class="mb-4">
+                <div class="event-card">
                     <div class="p-4 glassmorphism shine" style="border-radius: 4px; background-color: rgba(230, 200, 255, 0.3);">
                         <div class="text-center mb-4">
                             <img class="img-fluid" src="img/engmnt.png" alt="" style="max-width: 150px;">
@@ -181,9 +176,9 @@
                         </div>
                     </div>
                 </div>
-
+                
                 <!-- Ganesh Pooja -->
-                <div class="mb-4">
+                <div class="event-card">
                     <div class="p-4 glassmorphism shine" style="border-radius: 4px; background-color: rgba(255, 200, 200, 0.3);">
                         <div class="text-center mb-4">
                             <img class="img-fluid" src="img/lord ganpati happy ganesh chaturthi_16761044-400x400.png" alt="" style="max-width: 150px;">
@@ -191,14 +186,14 @@
                         <div class="text-center">
                             <h4 class="mb-2" style="color: #8B0000;">Ganesh Pooja</h4>
                             <p class="text-uppercase mb-2" style="color: #A52A2A;">06 Dec 2024 | 08:00 AM | At Our Home</p>
-                            <p class="m-0" style="color: #800000;">वक्रतुण्ड महाकाय सूर्यकोटि समप्रभ । निर्विघ्नं कुरु मे देव सर्वकार्येषु सर्वदा ॥</p>
+                            <p class="m-0" style="color: #800000;">वक्रतुण्ड महाकाय सूर्यकोटि समप्रभ । निर्विघ्नं कुरु मे देव सर्वका्येषु सर्वदा ॥</p>
                             <p style="color: #800000;">Oh, Divine Lord, please bless my endeavors so they're obstacle-free, in everything I do, always.</p>
                         </div>
                     </div>
                 </div>
 
                 <!-- Sual Pathai And Haldi -->
-                <div class="mb-4">
+                <div class="event-card">
                     <div class="p-4 glassmorphism shine" style="border-radius: 4px; background-color: rgba(255, 230, 180, 0.3);">
                         <div class="text-center mb-4">
                             <img class="img-fluid" src="img/indian wedding mehendi and haldi_9009127.png" alt="" style="max-width: 150px;">
@@ -211,7 +206,7 @@
                 </div>
 
                 <!-- Sangeet & Mehndi -->
-                <div class="mb-4">
+                <div class="event-card">
                     <div class="p-4 glassmorphism shine" style="border-radius: 4px; background-color: rgba(200, 255, 200, 0.3);">
                         <div class="text-center mb-4">
                             <img class="img-fluid" src="img/indian wedding mehendi couple_8406493.png" alt="" style="max-width: 150px;">
@@ -224,7 +219,7 @@
                 </div>
 
                 <!-- Marriage -->
-                <div class="mb-4">
+                <div class="event-card">
                     <div class="p-4 glassmorphism shine" style="border-radius: 4px; background-color: rgba(255, 200, 200, 0.3);">
                         <div class="text-center mb-4">
                             <img class="img-fluid" src="img/weddinglehnga.png" alt="" style="max-width: 150px;">
@@ -243,7 +238,7 @@
                 </div>
 
                 <!-- Vidayi -->
-                <div>
+                <div class="event-card">
                     <div class="p-4 glassmorphism shine" style="border-radius: 4px; background-color: rgba(220, 220, 220, 0.3);">
                         <div class="text-center mb-4">
                             <img class="img-fluid" src="img/vidayii.png" alt="" style="max-width: 150px;">
@@ -401,7 +396,7 @@
 
 
     <!-- Footer Start -->
-    <div class="container-fluid text-white py-5 glassmorphism shine" id="contact" style="background-color: #005353; margin-top: 90px;">
+    <div class="container-fluid text-white py-5 glassmorphism shine" id="contact" style="background-color: #b19cd9; margin-top: 90px;">
         <div class="container text-center py-5">
             <div class="section-title position-relative text-center">
                 <h1 class="font-secondary display-2 text-white" style="font-family: 'Playfair Display', serif; font-size: 3rem;">Thank You</h1>
@@ -442,18 +437,23 @@
     <script src="lib/isotope/isotope.pkgd.min.js"></script>
     <script src="lib/lightbox/js/lightbox.min.js"></script>
 
-    <!-- Template Javascript -->
+    <!-- Add these lines before your main.js script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
+
+    <!-- Your existing script tag -->
     <script src="js/main.js"></script>
 
     <!-- Update the audio tag -->
     <audio id="backgroundMusic" loop>
-        <source src="music/Ed Sheeran - Perfect 128.mp3" type="audio/mpeg">
+        <source src="music/Ed Sheeran - Perfect 128.mp3" preload="auto" loop="true" type="audio/mpeg">
+        <script src="js/main.js"></script>
         Your browser does not support the audio element.
     </audio>
 
     <!-- Update the mute button -->
-    <div id="muteButton" style="position: fixed; bottom: 20px; left: 20px; z-index: 1000; cursor: pointer;">
-        <img src="img/music-stop-icon.png" alt="Music Stopped" style="width: 30px; height: 30px;">
+    <div id="muteButton" style="position: fixed; bottom: 25px; left: 25px; z-index: 1000; cursor: pointer;">
+        <img src="img/music-stop-icon.png" alt="Music Stopped" style="width: 42px; height: 42px;">
     </div>
 
     <!-- Make sure this is the only audio element in your HTML -->
