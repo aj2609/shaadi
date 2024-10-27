@@ -243,3 +243,28 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+// Add this function after the addToCalendar function
+
+// Download Invitation function
+function downloadInvitation(e) {
+    e.preventDefault();
+    
+    // Create a link element
+    var link = document.createElement('a');
+    
+    // Set the href to the video file
+    link.href = 'img/invite.mp4';
+    
+    // Set the download attribute with the desired file name
+    link.download = 'Wedding_Invitation.mp4';
+    
+    // Append the link to the body
+    document.body.appendChild(link);
+    
+    // Programmatically click the link to trigger the download
+    link.click();
+    
+    // Remove the link from the body
+    document.body.removeChild(link);
+}
