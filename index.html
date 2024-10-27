@@ -152,6 +152,26 @@
                 font-size: 0.9rem;
             }
         }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            -webkit-overflow-scrolling: touch;
+            overflow-y: scroll;
+        }
+
+        /* Remove any scroll-snap properties if they exist */
+        .event-container, .event-card {
+            scroll-snap-align: none;
+        }
+
+        /* Ensure content isn't causing horizontal overflow */
+        .container-fluid, .container {
+            max-width: 100%;
+            overflow-x: hidden;
+        }
     </style>
 </head>
 
@@ -290,7 +310,7 @@
                         </div>
                         <div class="text-center">
                             <h4 class="mb-2" style="color: #8B0000;">Ganesh Pooja</h4>
-                            <p class="text-uppercase mb-2" style="color: #A52A2A;">06 Dec 2024 | 08:00 AM | At Our Home</p>
+                            <p class="text-uppercase mb-2" style="color: #A52A2A;">06 Dec 2024 | 08:00 AM | Family Residence</p>
                             <p class="m-0" style="color: #800000;">वक्रतुण्ड महकाय सूर्यकोटि समप्रभ । निर्विघ्नं कुरु मे देव सर्वका्येषु सर्वद ॥</p>
                             <p style="color: #800000;">Oh, Divine Lord, please bless my endeavors so they're obstacle-free, in everything I do, always.</p>
                         </div>
@@ -317,8 +337,8 @@
                             <img class="img-fluid" src="img/indian wedding mehendi couple_8406493.png" alt="" style="max-width: 150px;">
                         </div>
                         <div class="text-center">
-                            <h4 class="mb-2" style="color: #006400;">Sangeet & Mehndi</h4>
-                            <p class="text-uppercase mb-2" style="color: #228B22;">06 Dec 2024 | 05:00 PM | Banquet Hall</p>
+                            <h4 class="mb-2" style="color: #006400;">Mehndi Night</h4>
+                            <p class="text-uppercase mb-2" style="color: #228B22;">06 Dec 2024 | 06:00 PM | Family Residence</p>
                         </div>
                     </div>
                 </div>
@@ -501,61 +521,85 @@
 
 
     <!-- Footer Start -->
-    <div class="container-fluid text-white py-3 glassmorphism shine" id="contact" style="background-color: #bbacd8; margin-top: 90px;">
+    <div class="container-fluid text-white py-3 glassmorphism shine" id="contact" style="background-color: #b19cd9; margin-top: 90px;">
         <div class="container text-center py-2">
             <div class="section-title position-relative text-center">
-                <h1 class="font-secondary display-2 text-white" style="font-family: 'Playfair Display', serif; font-size: 3rem;">Contact Us</h1>
-                <div class="designer-underline"></div>
-                <i class="fa fa-heart fa-2x text-primary mt-3"></i>
+                <h1 class="font-secondary display-4 text-white" style="font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 1rem;">Contact Us</h1>
             </div>
-            <div class="row justify-content-center mt-4">
-                <div class="col-md-5 mb-4 groom-contact">
-                    <div class="contact-card p-4" style="background-color: rgba(255, 255, 255, 0.1); border-radius: 10px;">
-                        <p style="color: #FFF; margin-bottom: 10px; font-size: 1rem;">
-                            <strong>Amit Joshi</strong><br>
-                            <a href="tel:+919398327321" style="color: #FFF; font-size: 1.5rem; margin-right: 15px;">
-                                <i class="fas fa-phone-alt"></i>
-                            </a>
-                            <a href="https://wa.me/919398327321" target="_blank" style="margin-left: 10px;">
-                                <i class="fab fa-whatsapp" style="color: #25D366; font-size: 1.5rem;"></i>
-                            </a>
-                        </p>
-                        <p style="color: #FFF; font-size: 1rem;">
-                            <strong>Nilamber Dutt Joshi (Father)</strong><br>
-                            <a href="tel:+919997237227" style="color: #FFF; font-size: 1.5rem; margin-right: 15px;">
-                                <i class="fas fa-phone-alt"></i>
-                            </a>
-                            <a href="https://wa.me/919997237227" target="_blank" style="margin-left: 10px;">
-                                <i class="fab fa-whatsapp" style="color: #25D366; font-size: 1.5rem;"></i>
-                            </a>
-                        </p>
+            <div class="row justify-content-center mt-3">
+                <div class="col-md-10">
+                    <div class="contact-card p-3" style="background-color: rgba(255, 255, 255, 0.1); border-radius: 10px;">
+                        <div class="row">
+                            <div class="col-md-6 mb-2 groom-contact">
+                                <p style="color: #FFF; margin-bottom: 5px; font-size: 0.9rem;">
+                                    <strong>Amit Joshi</strong>
+                                    <a href="tel:+919398327321" style="color: #FFF; font-size: 1.2rem; margin-right: 10px;">
+                                        <i class="fas fa-phone-alt"></i>
+                                    </a>
+                                    <a href="https://wa.me/919398327321" target="_blank">
+                                        <i class="fab fa-whatsapp" style="color: #25D366; font-size: 1.2rem;"></i>
+                                    </a>
+                                </p>
+                                <p style="color: #FFF; font-size: 0.9rem;">
+                                    <strong>Nilamber Dutt Joshi (Father)</strong>
+                                    <a href="tel:+919997237227" style="color: #FFF; font-size: 1.2rem; margin-right: 10px;">
+                                        <i class="fas fa-phone-alt"></i>
+                                    </a>
+                                    <a href="https://wa.me/919997237227" target="_blank">
+                                        <i class="fab fa-whatsapp" style="color: #25D366; font-size: 1.2rem;"></i>
+                                    </a>
+                                </p>
+                                <div class="address-section" style="color: #FFF; font-size: 0.8rem; text-align: left; margin-top: 10px;">
+                                    <strong>Address:</strong><br>
+                                    Nilamber Dutt Joshi,<br>
+                                    Purna Niketan,<br>
+                                    Ward no. 11, Bhoor Maholiya,<br>
+                                    Khatima, Uttarakhand, 262308,<br>
+                                    Landmark: Opposite Akash Honda Showroom
+                                </div>
+                                <a href="https://www.google.com/maps?q=28.9268043,79.9535242" target="_blank" class="btn btn-sm btn-light mt-2">
+                                    <i class="fas fa-map-marker-alt"></i> View on Google Maps
+                                </a>
+                            </div>
+                            <div class="col-md-6 mb-2 bride-contact">
+                                <p style="color: #FFF; margin-bottom: 5px; font-size: 0.9rem;">
+                                    <strong>Amit Pandey (Brother)</strong>
+                                    <a href="tel:+919758908479" style="color: #FFF; font-size: 1.2rem; margin-right: 10px;">
+                                        <i class="fas fa-phone-alt"></i>
+                                    </a>
+                                    <a href="https://wa.me/919758908479" target="_blank">
+                                        <i class="fab fa-whatsapp" style="color: #25D366; font-size: 1.2rem;"></i>
+                                    </a>
+                                </p>
+                                <p style="color: #FFF; font-size: 0.9rem;">
+                                    <strong>Harish Chandra Pandey (Father)</strong>
+                                    <a href="tel:+919719377282" style="color: #FFF; font-size: 1.2rem; margin-right: 10px;">
+                                        <i class="fas fa-phone-alt"></i>
+                                    </a>
+                                    <a href="https://wa.me/919719377282" target="_blank">
+                                        <i class="fab fa-whatsapp" style="color: #25D366; font-size: 1.2rem;"></i>
+                                    </a>
+                                </p>
+                                <div class="address-section" style="color: #FFF; font-size: 0.8rem; text-align: left; margin-top: 10px;">
+                                    <strong>Address:</strong><br>
+                                    Harish Chandra Pandey,<br>
+                                    Rajpuram Colony,<br>
+                                    Manpur Road,<br>
+                                    Kashipur, Uttarakhand, 244713,<br>
+                                    Landmark: Yadav Atta Chakki
+                                </div>
+                                <a href="https://www.google.com/maps?q=29.2267951965332,78.9595718383789" target="_blank" class="btn btn-sm btn-light mt-2">
+                                    <i class="fas fa-map-marker-alt"></i> View on Google Maps
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-5 mb-4 bride-contact">
-                    <div class="contact-card p-4" style="background-color: rgba(255, 255, 255, 0.1); border-radius: 10px;">
-                        <p style="color: #FFF; margin-bottom: 10px; font-size: 1rem;">
-                            <strong>Amit Pandey (Brother)</strong><br>
-                            <a href="tel:+919758908479" style="color: #FFF; font-size: 1.5rem; margin-right: 15px;">
-                                <i class="fas fa-phone-alt"></i>
-                            </a>
-                            <a href="https://wa.me/919758908479" target="_blank" style="margin-left: 10px;">
-                                <i class="fab fa-whatsapp" style="color: #25D366; font-size: 1.5rem;"></i>
-                            </a>
-                        </p>
-                        <p style="color: #FFF; font-size: 1rem;">
-                            <strong>Harish Chandra Pandey (Father)</strong><br>
-                            <a href="tel:+919719377282" style="color: #FFF; font-size: 1.5rem; margin-right: 15px;">
-                                <i class="fas fa-phone-alt"></i>
-                            </a>
-                            <a href="https://wa.me/919719377282" target="_blank" style="margin-left: 10px;">
-                                <i class="fab fa-whatsapp" style="color: #25D366; font-size: 1.5rem;"></i>
-                            </a>
-                        </p>
-                    </div>
-                </div>
             </div>
-            <p class="m-0 mt-4" style="font-size: 0.8rem;">&copy; <a class="text-primary" href="#"></a>Designed by <a class="text-primary" href="mailto:pandeyapurvaa@gmail.com">Apurvaa</a>
-            </p>
+            <div class="mt-4">
+                <i class="fa fa-heart fa-2x text-primary"></i>
+            </div>
+            <p class="m-0 mt-2" style="font-size: 0.8rem;">Designed by <a class="text-primary" href="mailto:pandeyapurvaa@gmail.com">Apurvaa & Amit</a></p>
         </div>
     </div>
     <!-- Footer End -->
@@ -637,6 +681,9 @@
             console.log(option + " selected");
             document.getElementById('welcomeOverlay').style.display = 'none';
             
+            // Scroll to the top of the page
+            window.scrollTo(0, 0);
+            
             if (option === 'bride') {
                 // Change the order of names for bride's side
                 document.querySelectorAll('.couple-names').forEach(el => {
@@ -659,6 +706,12 @@
                             <div class="text-center">
                                 <h4 class="mb-2" style="color: #8B0000;">Sangeet & Reception</h4>
                                 <p class="text-uppercase mb-2" style="color: #A52A2A;">08 Dec 2024 | 05:00 PM | Dhani Resort, Khatima</p>
+                                <a href="https://www.google.com/maps/search/?api=1&query=Dhani+Resort+Khatima" 
+                                   target="_blank" 
+                                   class="btn mb-3" 
+                                   style="background-color: #8B0000; color: #FFFFFF; border: none;">
+                                    <i class="fas fa-map-marker-alt mr-2"></i>See the Venue
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -669,6 +722,46 @@
                 document.querySelector('.bride-contact').style.display = 'none';
             }
         }
+    </script>
+
+    <!-- Add this script at the end of the body, just before the closing </body> tag -->
+    <script>
+        // Smooth scroll for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Prevent default touch move behavior
+        document.addEventListener('touchmove', function(e) {
+            e.preventDefault();
+        }, { passive: false });
+
+        // Enable smooth scrolling on touch devices
+        let touchStartY = 0;
+        let touchEndY = 0;
+
+        document.addEventListener('touchstart', function(e) {
+            touchStartY = e.touches[0].pageY;
+        }, false);
+
+        document.addEventListener('touchmove', function(e) {
+            touchEndY = e.touches[0].pageY;
+        }, false);
+
+        document.addEventListener('touchend', function(e) {
+            let difference = touchStartY - touchEndY;
+            if (Math.abs(difference) > 50) { // Adjust this threshold as needed
+                window.scrollBy({
+                    top: difference,
+                    behavior: 'smooth'
+                });
+            }
+        }, false);
     </script>
 </body>
 </html>
