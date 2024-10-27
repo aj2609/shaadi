@@ -231,37 +231,15 @@ function addToCalendar(e) {
     }
 }
 
-// Event card touch events
+// Add this new section to ensure smooth scrolling behavior
 document.addEventListener('DOMContentLoaded', function() {
-    const eventContainer = document.querySelector('.event-container');
-    let startY;
-    let currentCard = 0;
-    const cards = document.querySelectorAll('.event-card');
-
-    function handleTouchStart(e) {
-        startY = e.touches[0].clientY;
-    }
-
-    function handleTouchMove(e) {
-        if (!startY) return;
-
-        let currentY = e.touches[0].clientY;
-        let diff = startY - currentY;
-
-        if (Math.abs(diff) > 50) { // Threshold for swipe
-            if (diff > 0 && currentCard < cards.length - 1) {
-                // Swipe up
-                currentCard++;
-            } else if (diff < 0 && currentCard > 0) {
-                // Swipe down
-                currentCard--;
-            }
-            cards[currentCard].scrollIntoView({ behavior: 'smooth' });
-            startY = null;
-        }
-    }
-
-    eventContainer.addEventListener('touchstart', handleTouchStart, false);
-    eventContainer.addEventListener('touchmove', handleTouchMove, false);
+    // Enable smooth scrolling for all internal links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
 });
-
