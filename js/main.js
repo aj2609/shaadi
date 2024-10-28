@@ -157,7 +157,9 @@ document.addEventListener('DOMContentLoaded', function() {
             audio.pause();
             if (muteButton) muteButton.querySelector('img').src = 'img/music-stop-icon.png';
         } else {
-            audio.play();
+            audio.play().catch(function(error) {
+                console.log("Audio play failed:", error);
+            });
             if (muteButton) muteButton.querySelector('img').src = 'img/music-icon.png';
         }
         isPlaying = !isPlaying;
@@ -268,3 +270,27 @@ function downloadInvitation(e) {
     // Remove the link from the body
     document.body.removeChild(link);
 }
+
+// Add this code to handle music playback on visibility change
+document.addEventListener('visibilitychange', function() {
+    var audio = document.getElementById('backgroundMusic');
+    if (!audio) return; // Exit if audio element doesn't exist
+    
+    if (document.hidden) {
+        // Browser tab is hidden or minimized
+        if (!audio.paused) {
+            audio.pause();
+            // Store the state that music was playing
+            audio.dataset.wasPlaying = 'true';
+        }
+    } else {
+        // Browser tab is visible again
+        if (audio.dataset.wasPlaying === 'true') {
+            audio.play().catch(function(error) {
+                console.log("Audio play failed:", error);
+            });
+            // Reset the stored state
+            audio.dataset.wasPlaying = 'false';
+        }
+    }
+});
