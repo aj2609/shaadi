@@ -271,26 +271,60 @@ function downloadInvitation(e) {
     document.body.removeChild(link);
 }
 
-// Add this code to handle music playback on visibility change
-document.addEventListener('visibilitychange', function() {
+// Update the visibility change handler
+document.addEventListener('visibilitychange', handleVisibilityChange);
+document.addEventListener('pagehide', handleVisibilityChange);
+window.addEventListener('blur', handleVisibilityChange);
+
+function handleVisibilityChange() {
     var audio = document.getElementById('backgroundMusic');
-    if (!audio) return; // Exit if audio element doesn't exist
-    
-    if (document.hidden) {
-        // Browser tab is hidden or minimized
-        if (!audio.paused) {
-            audio.pause();
-            // Store the state that music was playing
+    if (!audio) return;
+
+    if (document.hidden || document.visibilityState === 'hidden') {
+        // Store current playing state before pausing
+        audio.dataset.wasPlaying = !audio.paused ? 'true' : 'false';
+        audio.pause();
+    } else if (document.visibilityState === 'visible' && audio.dataset.wasPlaying === 'true') {
+        audio.play().catch(function(error) {
+            console.log("Audio play failed:", error);
+        });
+    }
+}
+
+// Add mobile-specific event listeners
+if ('onpagehide' in window) {
+    window.addEventListener('pagehide', function() {
+        var audio = document.getElementById('backgroundMusic');
+        if (audio && !audio.paused) {
             audio.dataset.wasPlaying = 'true';
+            audio.pause();
         }
-    } else {
-        // Browser tab is visible again
-        if (audio.dataset.wasPlaying === 'true') {
+    });
+
+    window.addEventListener('pageshow', function() {
+        var audio = document.getElementById('backgroundMusic');
+        if (audio && audio.dataset.wasPlaying === 'true') {
             audio.play().catch(function(error) {
                 console.log("Audio play failed:", error);
             });
-            // Reset the stored state
-            audio.dataset.wasPlaying = 'false';
         }
+    });
+}
+
+// Handle mobile app switching
+document.addEventListener('freeze', function() {
+    var audio = document.getElementById('backgroundMusic');
+    if (audio && !audio.paused) {
+        audio.dataset.wasPlaying = 'true';
+        audio.pause();
+    }
+});
+
+document.addEventListener('resume', function() {
+    var audio = document.getElementById('backgroundMusic');
+    if (audio && audio.dataset.wasPlaying === 'true') {
+        audio.play().catch(function(error) {
+            console.log("Audio play failed:", error);
+        });
     }
 });
