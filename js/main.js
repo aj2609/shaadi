@@ -1,6 +1,76 @@
 (function ($) {
     "use strict";
 
+    // Audio handling setup
+    $(document).ready(function () {
+        var audio = document.getElementById('backgroundMusic');
+        var isPlaying = false;
+
+        // Function to toggle audio playback
+        function toggleAudio() {
+            if (isPlaying) {
+                audio.pause();
+                if (muteButton) muteButton.querySelector('img').src = 'img/music-stop-icon.png';
+            } else {
+                audio.play().catch(function (error) {
+                    console.log("Audio play failed:", error);
+                });
+                if (muteButton) muteButton.querySelector('img').src = 'img/music-icon.png';
+            }
+            isPlaying = !isPlaying;
+        }
+
+        // Handle visibility change
+        function handleVisibilityChange() {
+            if (!audio) return;
+            if (document.hidden) {
+                // Store current playing state before pausing
+                audio.dataset.wasPlaying = !audio.paused ? 'true' : 'false';
+                audio.pause();
+            } else if (audio.dataset.wasPlaying === 'true') {
+                // Resume playing if it was playing before
+                audio.play().catch(function (error) {
+                    console.log("Audio play failed:", error);
+                });
+            }
+        }
+
+        // Add event listener for visibility change
+        document.addEventListener('visibilitychange', handleVisibilityChange);
+
+        // Add mobile-specific event listeners for handling app switching
+        window.addEventListener('pagehide', function () {
+            if (!audio.paused) {
+                audio.dataset.wasPlaying = 'true';
+                audio.pause();
+            }
+        });
+
+        window.addEventListener('pageshow', function () {
+            if (audio.dataset.wasPlaying === 'true') {
+                audio.play().catch(function (error) {
+                    console.log("Audio play failed:", error);
+                });
+            }
+        });
+
+        // Mute button functionality
+        var muteButton = document.getElementById('muteButton');
+        if (muteButton) {
+            muteButton.addEventListener('click', function (event) {
+                event.stopPropagation();
+                toggleAudio();
+            });
+        }
+
+        // Start playing on the first user interaction
+        document.body.addEventListener('click', function () {
+            if (!isPlaying) {
+                toggleAudio();
+            }
+        }, { once: true });
+    });
+
     // Navbar on scrolling
     $(window).scroll(function () {
         if ($(this).scrollTop() > 200) {
@@ -8,21 +78,6 @@
         } else {
             $('.navbar').fadeOut('slow').css('display', 'none');
         }
-    });
-
-    document.addEventListener('DOMContentLoaded', function() {
-        var audio = document.getElementById('backgroundMusic');
-        var isPlaying = false;
-    
-        function playAudioOnScroll() {
-            if (!isPlaying && audio) {
-                audio.play();
-                isPlaying = true;
-                window.removeEventListener('scroll', playAudioOnScroll);
-            }
-        }
-    
-        window.addEventListener('scroll', playAudioOnScroll);
     });
 
     // Smooth scrolling on the navbar links
@@ -146,40 +201,8 @@ function updateTimer() {
     }
 }
 
-// Music playback on first user interaction
-document.addEventListener('DOMContentLoaded', function() {
-    var audio = document.getElementById('backgroundMusic');
-    var muteButton = document.getElementById('muteButton');
-    var isPlaying = false;
-
-    function toggleAudio() {
-        if (isPlaying) {
-            audio.pause();
-            if (muteButton) muteButton.querySelector('img').src = 'img/music-stop-icon.png';
-        } else {
-            audio.play().catch(function(error) {
-                console.log("Audio play failed:", error);
-            });
-            if (muteButton) muteButton.querySelector('img').src = 'img/music-icon.png';
-        }
-        isPlaying = !isPlaying;
-    }
-
-    if (muteButton) {
-        muteButton.addEventListener('click', function(event) {
-            event.stopPropagation();
-            toggleAudio();
-        });
-    }
-
-    // Start playing on the first user interaction
-    document.body.addEventListener('click', function() {
-        if (!isPlaying) {
-            toggleAudio();
-        }
-    }, { once: true });
-
-    // Start the timer
+// Start the timer when the document is ready
+$(document).ready(function() {
     updateTimer();
     setInterval(updateTimer, 1000);
 });
@@ -233,98 +256,14 @@ function addToCalendar(e) {
     }
 }
 
-// Add this new section to ensure smooth scrolling behavior
-document.addEventListener('DOMContentLoaded', function() {
-    // Enable smooth scrolling for all internal links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            document.querySelector(this.getAttribute('href')).scrollIntoView({
-                behavior: 'smooth'
-            });
-        });
-    });
-});
-
-// Add this function after the addToCalendar function
-
 // Download Invitation function
 function downloadInvitation(e) {
     e.preventDefault();
     
-    // Create a link element
     var link = document.createElement('a');
-    
-    // Set the href to the video file
     link.href = 'img/invite.mp4';
-    
-    // Set the download attribute with the desired file name
     link.download = 'Wedding_Invitation.mp4';
-    
-    // Append the link to the body
     document.body.appendChild(link);
-    
-    // Programmatically click the link to trigger the download
     link.click();
-    
-    // Remove the link from the body
     document.body.removeChild(link);
 }
-
-// Update the visibility change handler
-document.addEventListener('visibilitychange', handleVisibilityChange);
-document.addEventListener('pagehide', handleVisibilityChange);
-window.addEventListener('blur', handleVisibilityChange);
-
-function handleVisibilityChange() {
-    var audio = document.getElementById('backgroundMusic');
-    if (!audio) return;
-
-    if (document.hidden || document.visibilityState === 'hidden') {
-        // Store current playing state before pausing
-        audio.dataset.wasPlaying = !audio.paused ? 'true' : 'false';
-        audio.pause();
-    } else if (document.visibilityState === 'visible' && audio.dataset.wasPlaying === 'true') {
-        audio.play().catch(function(error) {
-            console.log("Audio play failed:", error);
-        });
-    }
-}
-
-// Add mobile-specific event listeners
-if ('onpagehide' in window) {
-    window.addEventListener('pagehide', function() {
-        var audio = document.getElementById('backgroundMusic');
-        if (audio && !audio.paused) {
-            audio.dataset.wasPlaying = 'true';
-            audio.pause();
-        }
-    });
-
-    window.addEventListener('pageshow', function() {
-        var audio = document.getElementById('backgroundMusic');
-        if (audio && audio.dataset.wasPlaying === 'true') {
-            audio.play().catch(function(error) {
-                console.log("Audio play failed:", error);
-            });
-        }
-    });
-}
-
-// Handle mobile app switching
-document.addEventListener('freeze', function() {
-    var audio = document.getElementById('backgroundMusic');
-    if (audio && !audio.paused) {
-        audio.dataset.wasPlaying = 'true';
-        audio.pause();
-    }
-});
-
-document.addEventListener('resume', function() {
-    var audio = document.getElementById('backgroundMusic');
-    if (audio && audio.dataset.wasPlaying === 'true') {
-        audio.play().catch(function(error) {
-            console.log("Audio play failed:", error);
-        });
-    }
-});
