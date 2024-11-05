@@ -270,10 +270,88 @@
                         <i class="fas fa-map-marker-alt mr-2"></i>See the Venue
                     </a>
                 </div>
+
+                <!-- Add RSVP Button that opens modal -->
+                <div>
+                    <button class="btn btn-outline-dark btn-lg mb-4" data-toggle="modal" data-target="#rsvpModal" style="color: #8B4513; border-color: #8B4513;">
+                        <i class="fas fa-envelope mr-2"></i>RSVP
+                    </button>
+                </div>
             </div>
         </div>
     </div>
     <!-- Save the Date End -->
+
+    <!-- Add this RSVP Modal after the Save the Date section -->
+    <div class="modal fade" id="rsvpModal" tabindex="-1" role="dialog" aria-labelledby="rsvpModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content" style="background-color: #FFE4E1;">
+                <div class="modal-header" style="border-bottom: 1px solid #8B4513;">
+                    <h5 class="modal-title" id="rsvpModalLabel" style="color: #8B4513; font-family: 'Great Vibes', cursive; font-size: 2rem;">RSVP</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="rsvpForm" onsubmit="handleRSVP(event)">
+                        <div class="form-group">
+                            <label for="name" style="color: #8B4513;">Your Name</label>
+                            <input type="text" class="form-control" id="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email" style="color: #8B4513;">Email Address (Optional)</label>
+                            <input type="email" class="form-control" id="email">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone" style="color: #8B4513;">Phone Number</label>
+                            <input type="tel" class="form-control" id="phone" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="guests" style="color: #8B4513;">Number of Guests</label>
+                            <select class="form-control" id="guests" required>
+                                <option value="">Select number of guests</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="attending" style="color: #8B4513;">Events Attending</label>
+                            <div class="attending-events">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="event1" name="events">
+                                    <label class="custom-control-label" for="event1">Ganesh Pooja</label>
+                                </div>
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="event2" name="events">
+                                    <label class="custom-control-label" for="event2">Sual Pathai And Haldi</label>
+                                </div>
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="event3" name="events">
+                                    <label class="custom-control-label" for="event3">Mehndi Night</label>
+                                </div>
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="event4" name="events">
+                                    <label class="custom-control-label" for="event4">Marriage</label>
+                                </div>
+                                <div class="custom-control custom-checkbox groom-side-event" style="display: none;">
+                                    <input type="checkbox" class="custom-control-input" id="event5" name="events">
+                                    <label class="custom-control-label" for="event5">Sangeet & Reception</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="message" style="color: #8B4513;">Message (Optional)</label>
+                            <textarea class="form-control" id="message" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-block" style="background-color: #8B4513; color: white;">Submit RSVP</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Background Images Start -->
     <div class="container-fluid p-0">
@@ -708,6 +786,7 @@
                 // Show only bride's side contact details
                 document.querySelector('.groom-contact').style.display = 'none';
                 document.querySelector('.bride-contact').style.display = 'block';
+                document.querySelector('.groom-side-event').style.display = 'none';
             } else if (option === 'groom') {
                 // Add Sangeet & Reception event for groom's side
                 const eventContainer = document.querySelector('.event-container');
@@ -734,6 +813,7 @@
                 // Show only groom's side contact details
                 document.querySelector('.groom-contact').style.display = 'block';
                 document.querySelector('.bride-contact').style.display = 'none';
+                document.querySelector('.groom-side-event').style.display = 'block';
             }
         }
 
@@ -754,6 +834,64 @@
             link.click();
             document.body.removeChild(link);
         }
+
+        // Add RSVP form handling
+        function handleRSVP(event) {
+            event.preventDefault();
+            
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value || 'Not provided',
+                phone: document.getElementById('phone').value,
+                guests: document.getElementById('guests').value,
+                events: Array.from(document.querySelectorAll('input[name="events"]:checked'))
+                    .map(cb => cb.nextElementSibling.textContent),
+                message: document.getElementById('message').value || 'No message',
+                timestamp: new Date().toISOString(),
+                side: selectedSide
+            };
+
+            // Replace this URL with your actual Google Apps Script deployment URL
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbwQZpfvIPESpXIzP-DoP_YOkZHzW2ofUIsuJnBsGgFyZTICO_zjm0wrYV1gCZKzZSV0/exec';
+
+            fetch(scriptURL, {
+                method: 'POST',
+                mode: 'no-cors',
+                body: JSON.stringify(formData),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(() => {
+                    alert('Thank you for your RSVP! We look forward to celebrating with you.');
+                    $('#rsvpModal').modal('hide');
+                    document.getElementById('rsvpForm').reset();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('There was an error submitting your RSVP. Please try again or contact us directly.');
+            });
+        }
+
+        // Add some styling for the checkboxes
+        document.addEventListener('DOMContentLoaded', function() {
+            const style = document.createElement('style');
+            style.textContent = `
+                .attending-events {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 10px;
+                }
+                .custom-control-label {
+                    color: #8B4513;
+                }
+                .custom-control-input:checked ~ .custom-control-label::before {
+                    background-color: #8B4513;
+                    border-color: #8B4513;
+                }
+            `;
+            document.head.appendChild(style);
+        });
     </script>
 
     <!-- Add this script at the end of the body, just before the closing </body> tag -->
@@ -809,5 +947,49 @@
             });
         }
     </script>
+
+    <!-- Add these before your closing </body> tag -->
+    <!-- <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-firestore.js"></script>
+
+    <script>
+    // Your Firebase configuration
+    const firebaseConfig = {
+        // Your config object from Firebase Console
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    // Update handleRSVP function
+    function handleRSVP(event) {
+        event.preventDefault();
+        
+        const formData = {
+            name: document.getElementById('name').value,
+            email: document.getElementById('email').value || 'Not provided',
+            phone: document.getElementById('phone').value,
+            guests: document.getElementById('guests').value,
+            events: Array.from(document.querySelectorAll('input[name="events"]:checked'))
+                .map(cb => cb.nextElementSibling.textContent),
+            message: document.getElementById('message').value || 'No message',
+            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+            side: selectedSide
+        };
+
+        // Add to Firestore
+        db.collection('rsvps').add(formData)
+            .then(() => {
+                alert('Thank you for your RSVP! We look forward to celebrating with you.');
+                $('#rsvpModal').modal('hide');
+                document.getElementById('rsvpForm').reset();
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                alert('There was an error submitting your RSVP. Please try again or contact us directly.');
+            });
+    }
+    </script> -->
 </body>
 </html>
