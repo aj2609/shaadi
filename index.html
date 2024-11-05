@@ -317,7 +317,7 @@
                         </div>
                         <div class="text-center">
                             <h4 class="mb-2" style="color: #8B0000;">Ganesh Pooja</h4>
-                            <p class="text-uppercase mb-2" style="color: #A52A2A;">06 Dec 2024 | 08:00 AM | Family Residence</p>
+                            <p class="text-uppercase mb-2" style="color: #A52A2A;">06 Dec 2024 | 10:00 AM | Family Residence</p>
                             <p class="m-0" style="color: #800000;">वक्रतुण्ड महकाय सूर्यकोटि समप्रभ । निर्विघ्नं कुरु मे देव सर्वका्येषु सर्वद ॥</p>
                             <p style="color: #800000;">Oh, Divine Lord, please bless my endeavors so they're obstacle-free, in everything I do, always.</p>
                         </div>
@@ -332,7 +332,7 @@
                         </div>
                         <div class="text-center">
                             <h4 class="mb-2" style="color: #8B4513;">Sual Pathai And Haldi</h4>
-                            <p class="text-uppercase mb-2" style="color: #A0522D;">06 Dec 2024 | 10:00 AM | Family Residence</p>
+                            <p class="text-uppercase mb-2" style="color: #A0522D;">06 Dec 2024 | 11:00 AM | Family Residence</p>
                         </div>
                     </div>
                 </div>
@@ -359,11 +359,11 @@
                         <div class="text-center">
                             <h4 class="mb-2" style="color: #8B0000;">Marriage</h4>
                             <p class="text-uppercase mb-2" style="color: #A52A2A;">07 Dec 2024 | 7:00 PM | Sanskriti Greens, Kashipur</p>
-                            <a href="https://www.google.com/maps/dir/?api=1&destination=Sanskriti+Greens+Kashipur" 
-                               target="_blank" 
-                               class="btn mb-3" 
-                               style="background-color: #8B0000; color: #FFFFFF; border: none;">
-                                <i class="fas fa-map-marker-alt"></i> Open in Google Maps
+                            <a href="https://www.google.com/maps?q=Sanskriti+Greens+Hotel+%26+Banquets,+Kashipur,+Uttarakhand&z=15" 
+                                   target="_blank" 
+                                   class="btn mb-3" 
+                                   style="background-color: #8B0000; color: #FFFFFF; border: none;">
+                                    <i class="fas fa-map-marker-alt mr-2"></i>See the Venue
                             </a>
                         </div>
                     </div>
@@ -686,7 +686,12 @@
 
     <!-- Add this script before the closing </body> tag -->
     <script>
+        // Add this variable at the top to track which side was selected
+        let selectedSide = 'groom'; // Default to groom's side
+
+        // Update the selectOption function to set the selectedSide
         function selectOption(option) {
+            selectedSide = option;
             console.log(option + " selected");
             document.getElementById('welcomeOverlay').style.display = 'none';
             
@@ -730,6 +735,24 @@
                 document.querySelector('.groom-contact').style.display = 'block';
                 document.querySelector('.bride-contact').style.display = 'none';
             }
+        }
+
+        // Add the downloadInvitation function
+        function downloadInvitation(e) {
+            e.preventDefault();
+            
+            // Determine which video to download based on selected side
+            const videoPath = selectedSide === 'bride' ? 'img/invite_bride.mp4' : 'img/invite_groom.mp4';
+            
+            // Create a temporary anchor element
+            const link = document.createElement('a');
+            link.href = videoPath;
+            link.download = selectedSide === 'bride' ? 'Bride_Side_Invitation.mp4' : 'Groom_Side_Invitation.mp4';
+            
+            // Append to document, click, and remove
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
         }
     </script>
 
