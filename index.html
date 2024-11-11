@@ -788,28 +788,38 @@
                 document.querySelector('.bride-contact').style.display = 'block';
                 document.querySelector('.groom-side-event').style.display = 'none';
             } else if (option === 'groom') {
-                // Add Sangeet & Reception event for groom's side
-                const eventContainer = document.querySelector('.event-container');
-                const sangeetEvent = `
-                    <div class="event-card">
-                        <div class="p-4 glassmorphism shine" style="border-radius: 4px; background-color: rgba(255, 182, 193, 0.3);">
-                            <div class="text-center mb-4">
-                                <img class="img-fluid" src="img/sangeet.jpg" alt="" style="max-width: 150px;">
-                            </div>
-                            <div class="text-center">
-                                <h4 class="mb-2" style="color: #8B0000;">Sangeet & Reception</h4>
-                                <p class="text-uppercase mb-2" style="color: #A52A2A;">08 Dec 2024 | 05:00 PM | Dhani Resort, Khatima</p>
-                                <a href="https://www.google.com/maps/search/?api=1&query=Dhani+Resort+Khatima" 
-                                   target="_blank" 
-                                   class="btn mb-3" 
-                                   style="background-color: #8B0000; color: #FFFFFF; border: none;">
-                                    <i class="fas fa-map-marker-alt mr-2"></i>See the Venue
-                                </a>
+                // Reset names to default for groom's side
+                document.querySelectorAll('.couple-names').forEach(el => {
+                    el.innerHTML = 'Amit <span class="text-primary">&</span> Apurvaa';
+                });
+                // Update the "We're getting married" div
+                document.querySelector('.carousel-caption h1').innerHTML = '<span class="amit-text">Amit</span> & Apurvaa';
+                
+                // Add Sangeet & Reception event for groom's side if it doesn't exist
+                if (!document.querySelector('.sangeet-reception-event')) {
+                    const eventContainer = document.querySelector('.event-container');
+                    const sangeetEvent = `
+                        <div class="event-card sangeet-reception-event">
+                            <div class="p-4 glassmorphism shine" style="border-radius: 4px; background-color: rgba(255, 182, 193, 0.3);">
+                                <div class="text-center mb-4">
+                                    <img class="img-fluid" src="img/sangeet.jpg" alt="" style="max-width: 150px;">
+                                </div>
+                                <div class="text-center">
+                                    <h4 class="mb-2" style="color: #8B0000;">Sangeet & Reception</h4>
+                                    <p class="text-uppercase mb-2" style="color: #A52A2A;">08 Dec 2024 | 05:00 PM | Dhani Resort, Khatima</p>
+                                    <a href="https://www.google.com/maps/search/?api=1&query=Dhani+Resort+Khatima" 
+                                       target="_blank" 
+                                       class="btn mb-3" 
+                                       style="background-color: #8B0000; color: #FFFFFF; border: none;">
+                                        <i class="fas fa-map-marker-alt mr-2"></i>See the Venue
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                `;
-                eventContainer.insertAdjacentHTML('beforeend', sangeetEvent);
+                    `;
+                    eventContainer.insertAdjacentHTML('beforeend', sangeetEvent);
+                }
+                
                 // Show only groom's side contact details
                 document.querySelector('.groom-contact').style.display = 'block';
                 document.querySelector('.bride-contact').style.display = 'none';
@@ -840,6 +850,7 @@
             event.preventDefault();
             
             const formData = {
+                type: 'rsvp',
                 name: document.getElementById('name').value,
                 email: document.getElementById('email').value || 'Not provided',
                 phone: document.getElementById('phone').value,
@@ -991,5 +1002,218 @@
             });
     }
     </script> -->
+
+    <!-- Add this script before closing body tag -->
+    <script>
+    // Visitor tracking functionality
+    class VisitorTracker {
+        constructor() {
+            this.startTime = new Date();
+            this.pagesViewed = new Set([window.location.pathname]);
+            this.side = '';
+        }
+
+        async getIPInfo() {
+            try {
+                // Try multiple IP APIs in case one fails
+                const apis = [
+                    'https://api.ipify.org?format=json',
+                    'https://api64.ipify.org?format=json',
+                    'https://ip-api.com/json'
+                ];
+
+                for (const api of apis) {
+                    try {
+                        const response = await fetch(api);
+                        const data = await response.json();
+                        return {
+                            ip: data.ip || data.query || 'Unknown',
+                            country_name: data.country || 'Unknown',
+                            city: data.city || 'Unknown'
+                        };
+                    } catch (e) {
+                        console.log(`Failed to fetch from ${api}, trying next...`);
+                        continue;
+                    }
+                }
+
+                // If all APIs fail, return default values
+                return {
+                    ip: 'Unknown',
+                    country_name: 'Unknown',
+                    city: 'Unknown'
+                };
+            } catch (error) {
+                console.error('Error fetching IP info:', error);
+                return {
+                    ip: 'Unknown',
+                    country_name: 'Unknown',
+                    city: 'Unknown'
+                };
+            }
+        }
+
+        getBrowserInfo() {
+            const ua = navigator.userAgent;
+            let browser = "Unknown";
+            let device = "Desktop";
+            let os = "Unknown";
+
+            // Detect browser
+            if (ua.includes("Firefox")) browser = "Firefox";
+            else if (ua.includes("Chrome")) browser = "Chrome";
+            else if (ua.includes("Safari")) browser = "Safari";
+            else if (ua.includes("Edge")) browser = "Edge";
+            else if (ua.includes("MSIE") || ua.includes("Trident/")) browser = "Internet Explorer";
+
+            // Detect device
+            if (/Mobile|Android|iP(hone|od)|IEMobile|BlackBerry|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(ua)) {
+                device = "Mobile";
+            } else if (/iPad|tablet/i.test(ua)) {
+                device = "Tablet";
+            }
+
+            // Detect OS
+            if (ua.includes("Windows")) os = "Windows";
+            else if (ua.includes("Mac")) os = "MacOS";
+            else if (ua.includes("Linux")) os = "Linux";
+            else if (ua.includes("Android")) os = "Android";
+            else if (ua.includes("iOS")) os = "iOS";
+
+            return { browser, device, os };
+        }
+
+        getScreenResolution() {
+            return `${window.screen.width}x${window.screen.height}`;
+        }
+
+        async trackVisit(side) {
+            try {
+                this.side = side;
+                const timeSpent = Math.round((new Date() - this.startTime) / 1000);
+                const browserInfo = this.getBrowserInfo();
+                const ipInfo = await this.getIPInfo();
+
+                console.log('Preparing visitor data...'); // Debug log
+
+                const visitorData = {
+                    type: 'visitor',
+                    side: this.side,
+                    ipAddress: ipInfo.ip,
+                    country: ipInfo.country_name,
+                    city: ipInfo.city,
+                    browser: browserInfo.browser,
+                    device: browserInfo.device,
+                    os: browserInfo.os,
+                    screenResolution: this.getScreenResolution(),
+                    language: navigator.language || 'Unknown',
+                    timeSpent: timeSpent,
+                    pagesViewed: Array.from(this.pagesViewed).join(', ')
+                };
+
+                console.log('Visitor data:', visitorData); // Debug log
+
+                // Send to Google Sheet
+                const scriptURL = 'YOUR_SCRIPT_URL'; // Replace with your actual script URL
+
+                console.log('Sending data to sheet...'); // Debug log
+
+                const response = await fetch(scriptURL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    body: JSON.stringify(visitorData),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                console.log('Data sent successfully'); // Debug log
+            } catch (error) {
+                console.error('Error in trackVisit:', error);
+            }
+        }
+
+        recordPageView(path) {
+            this.pagesViewed.add(path);
+        }
+    }
+
+    // Initialize visitor tracker
+    const visitorTracker = new VisitorTracker();
+
+    // Update the selectOption function to include tracking
+    function selectOption(option) {
+        selectedSide = option;
+        
+        // Track the visit when side is selected
+        visitorTracker.trackVisit(option);
+        
+        // Hide welcome overlay
+        document.getElementById('welcomeOverlay').style.display = 'none';
+        
+        // Scroll to the top of the page
+        window.scrollTo(0, 0);
+        
+        if (option === 'bride') {
+            // Change the order of names for bride's side
+            document.querySelectorAll('.couple-names').forEach(el => {
+                el.innerHTML = 'Apurvaa <span class="text-primary">&</span> Amit';
+            });
+            // Update the "We're getting married" div
+            document.querySelector('.carousel-caption h1').innerHTML = '<span class="apurvaa-text">Apurvaa</span> & Amit';
+            // Show only bride's side contact details
+            document.querySelector('.groom-contact').style.display = 'none';
+            document.querySelector('.bride-contact').style.display = 'block';
+            document.querySelector('.groom-side-event').style.display = 'none';
+        } else if (option === 'groom') {
+            // Reset names to default for groom's side
+            document.querySelectorAll('.couple-names').forEach(el => {
+                el.innerHTML = 'Amit <span class="text-primary">&</span> Apurvaa';
+            });
+            // Update the "We're getting married" div
+            document.querySelector('.carousel-caption h1').innerHTML = '<span class="amit-text">Amit</span> & Apurvaa';
+            
+            // Add Sangeet & Reception event for groom's side if it doesn't exist
+            if (!document.querySelector('.sangeet-reception-event')) {
+                const eventContainer = document.querySelector('.event-container');
+                const sangeetEvent = `
+                    <div class="event-card sangeet-reception-event">
+                        <div class="p-4 glassmorphism shine" style="border-radius: 4px; background-color: rgba(255, 182, 193, 0.3);">
+                            <div class="text-center mb-4">
+                                <img class="img-fluid" src="img/sangeet.jpg" alt="" style="max-width: 150px;">
+                            </div>
+                            <div class="text-center">
+                                <h4 class="mb-2" style="color: #8B0000;">Sangeet & Reception</h4>
+                                <p class="text-uppercase mb-2" style="color: #A52A2A;">08 Dec 2024 | 05:00 PM | Dhani Resort, Khatima</p>
+                                <a href="https://www.google.com/maps/search/?api=1&query=Dhani+Resort+Khatima" 
+                                   target="_blank" 
+                                   class="btn mb-3" 
+                                   style="background-color: #8B0000; color: #FFFFFF; border: none;">
+                                    <i class="fas fa-map-marker-alt mr-2"></i>See the Venue
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                eventContainer.insertAdjacentHTML('beforeend', sangeetEvent);
+            }
+            
+            // Show only groom's side contact details
+            document.querySelector('.groom-contact').style.display = 'block';
+            document.querySelector('.bride-contact').style.display = 'none';
+            document.querySelector('.groom-side-event').style.display = 'block';
+        }
+    }
+
+    // Track page views
+    window.addEventListener('popstate', () => {
+        visitorTracker.recordPageView(window.location.pathname);
+    });
+
+    // Track when user leaves the page
+    window.addEventListener('beforeunload', () => {
+        visitorTracker.trackVisit(visitorTracker.side);
+    });
+    </script>
 </body>
 </html>
